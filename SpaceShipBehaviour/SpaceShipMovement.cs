@@ -12,6 +12,6 @@ public class SpaceShipMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.position = Vector2.MoveTowards (transform.position, new Vector2 (transform.position.x, GameHandler.instance.character.transform.position.y), Time.deltaTime * 3);
+		transform.position = Vector2.MoveTowards (transform.position, new Vector2 (transform.position.x, GameHandler.instance.getCharacter().transform.position.y), Time.deltaTime * 3);
 	}
 }

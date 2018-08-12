@@ -4,7 +4,6 @@ using UnityEngine;
 
 [System.Serializable]
 public class GameHandler : MonoBehaviour {
-	public static GameHandler instance = null;
 
 	//Parameters
 	[Header("General Settings")]
@@ -22,17 +21,18 @@ public class GameHandler : MonoBehaviour {
 
 	public LevelSettings[] levels;
 
-	[Header("Accessible Game Data")]
-
-	public LevelSettings currentLevel;
+	[Header("Assignable objects")]
 	public GameObject character;
 
-	private const float aspect = 1280.0F / 720.0F;
+	private int currentLevel;
+
+	public static GameHandler instance = null;
 	void Awake (){
 		if (instance == null)
 			instance = this;
 	}
-	// Use this for initialization
+
+	private const float aspect = 1280.0F / 720.0F;
 	void Start () {
 //		Debug.Log (Screen.currentResolution);
 //
@@ -41,12 +41,24 @@ public class GameHandler : MonoBehaviour {
 //		Debug.Log (Screen.currentResolution);
 		Camera.main.aspect = aspect; //TODO
 		//Camera.main.orthographicSize = Mathf.Min (Camera.main.orthographicSize, 720);
+
+		currentLevel = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	}
 
+	public void nextLevel(){
+		//Activate the ennemy spawner
+	}
+
+	public GameObject getCharacter (){
+		return character;
+	}
+	public LevelSettings getCurrentLevel(){
+		return levels [currentLevel];
+	}
 	public float getCharacterSpeed (){
 		return gameSpeed * characterSpeed;
 	}
