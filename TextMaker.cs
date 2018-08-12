@@ -13,7 +13,7 @@ public class TextMaker : MonoBehaviour {
 	private float printerTime;
 
 	void Awake(){
-		text = this.GetComponent<Text> ();
+		text = this.GetComponentsInChildren<Text> ()[0];
 	}
 
 	void Update (){
@@ -26,28 +26,38 @@ public class TextMaker : MonoBehaviour {
 			}
 			if (curPrinting.Length <= printIndex) {
 				isPrinting = false;
-				if (textQueue.Count > 0) {
-					curPrinting = textQueue.Dequeue ();
-					printIndex = 0;
-				} else {
+				if (textQueue.Count == 0)
 					closeDialog ();
-				}
 			}
 		}
+
+		if (Input.GetButtonDown ("Move"))
+			Continue ();
 	}
 
-	public void Print(string[] printMe){
+	public void Print(TextHandler.Dialog printMe){
 		Debug.Assert (textQueue.Count == 0 && isPrinting == false);
-		foreach (string str in printMe) {
+		foreach (string str in printMe.lines) {
 			textQueue.Enqueue(str);
 		}
+
 		isPrinting = true;
 		printerTime = 0;
-		GetComponent<Renderer> ().enabled = true;
+
+		this.GetComponentInChildren<Image> ().enabled = true;
+		this.GetComponentInChildren<SpriteRenderer> ().enabled = true;
+		this.GetComponentInChildren<SpriteRenderer> ().sprite = TextHandler.getCharacter(printMe.character).sprite;
 	}
 
 	public void Continue(){
-		isPrinting = true;
+		if (!isPrinting && textQueue.Count > 0) {
+			curPrinting = textQueue.Dequeue ();
+			printIndex = 0;
+			isPrinting = true;
+		} else {
+			text.text = curPrinting;
+			curPrinting = "";
+		}
 	}
 
 	private void printChar(char c){
@@ -59,6 +69,8 @@ public class TextMaker : MonoBehaviour {
 	}
 
 	private void closeDialog (){
-		GetComponentInParent<Image> ().enabled = false;
+		GetComponentInChildren<Image> ().enabled = false;
+		GetComponentInChildren<SpriteRenderer> ().enabled = false;
+		GameHandler.instance.nextLevel ();
 	}
 }

@@ -21,7 +21,7 @@ public class EnemySpawner : MonoBehaviour {
 	void Update () {
 		timeSinceLastSpawn += Time.deltaTime;
 
-		if (timeSinceLastSpawn > 100.0 / GameHandler.instance.currentLevel.spawnRate) {
+		if (timeSinceLastSpawn > 100.0 / GameHandler.instance.getCurrentLevel().spawnRate) {
 			timeSinceLastSpawn = 0;
 			float randVal = Random.value* probaTotale;
 			int chosenOne = 0;
@@ -33,8 +33,7 @@ public class EnemySpawner : MonoBehaviour {
 					chosenOne++;
 			}
 			spawned = Instantiate (ennemyPrefabs[chosenOne]);
-			if (spawned)
-				print ("Enemy spawned");
+			spawned.transform.parent = transform;
 		}
 	}
 }
