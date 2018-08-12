@@ -13,7 +13,7 @@ public class TextMaker : MonoBehaviour {
 	private float printerTime;
 
 	void Awake(){
-		text = this.GetComponent<Text> ();
+		text = this.GetComponentsInChildren<Text> ()[0];
 	}
 
 	void Update (){
@@ -36,14 +36,17 @@ public class TextMaker : MonoBehaviour {
 		}
 	}
 
-	public void Print(string[] printMe){
+	public void Print(TextHandler.Dialog printMe){
 		Debug.Assert (textQueue.Count == 0 && isPrinting == false);
-		foreach (string str in printMe) {
+		foreach (string str in printMe.lines) {
 			textQueue.Enqueue(str);
 		}
+		curPrinting = textQueue.Dequeue ();
+		printIndex = 0;
+
 		isPrinting = true;
 		printerTime = 0;
-		GetComponent<Renderer> ().enabled = true;
+		this.GetComponentsInChildren<Image> () [0].enabled = true;
 	}
 
 	public void Continue(){
@@ -59,6 +62,6 @@ public class TextMaker : MonoBehaviour {
 	}
 
 	private void closeDialog (){
-		GetComponentInParent<Image> ().enabled = false;
+		GetComponentsInChildren<Image> ()[0].enabled = false;
 	}
 }

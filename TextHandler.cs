@@ -10,16 +10,21 @@ public class TextHandler : MonoBehaviour {
 	public class Character
 	{
 		public string name;
-		public Image image;
+		public Sprite image;
 	}
-
 	public Character[] characters;
 
-	public string[][] dialogs;
+	[System.Serializable]
+	public class Dialog
+	{
+		public string character;
+		public string[] lines;
+	}
+	public Dialog[] dialogs;
 
 	// Use this for initialization
 	void Start () {
-		textMaker.Print (dialogs [0]);
+		textMaker.Print (dialogs[0]);
 	}
 	
 	// Update is called once per frame
