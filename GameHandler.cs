@@ -17,6 +17,8 @@ public class GameHandler : MonoBehaviour {
 	[System.Serializable]
 	public class LevelSettings{
 		public float spawnRate;
+		public float astroidSpeed;
+		public float spaceShipSpeed;
 	}
 
 	public LevelSettings[] levels;
