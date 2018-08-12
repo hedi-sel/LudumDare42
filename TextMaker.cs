@@ -50,7 +50,7 @@ public class TextMaker : MonoBehaviour {
 	}
 
 	public void Continue(){
-		if (!isPrinting) {
+		if (!isPrinting && textQueue.Count > 0) {
 			curPrinting = textQueue.Dequeue ();
 			printIndex = 0;
 			isPrinting = true;

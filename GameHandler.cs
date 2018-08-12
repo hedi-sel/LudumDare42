@@ -34,14 +34,8 @@ public class GameHandler : MonoBehaviour {
 
 	private const float aspect = 1280.0F / 720.0F;
 	void Start () {
-//		Debug.Log (Screen.currentResolution);
-//
-//		int width = Mathf.Min (Screen.width,(int)(Screen.height * aspect));
-//		Screen.SetResolution (width, (int)(width / aspect), Screen.fullScreen);
-//		Debug.Log (Screen.currentResolution);
 		Camera.main.aspect = aspect; //TODO
-		//Camera.main.orthographicSize = Mathf.Min (Camera.main.orthographicSize, 720);
-
+		Camera.main.orthographicSize = 720/2;
 		currentLevel = 0;
 	}
 	
@@ -51,6 +45,10 @@ public class GameHandler : MonoBehaviour {
 
 	public void nextLevel(){
 		//Activate the ennemy spawner
+	}
+
+	public Vector2 getScreenMax(){ //We assert that min is -max
+		return new Vector2(Camera.main.orthographicSize*aspect, Camera.main.orthographicSize);
 	}
 
 	public GameObject getCharacter (){

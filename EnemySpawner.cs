@@ -33,8 +33,7 @@ public class EnemySpawner : MonoBehaviour {
 					chosenOne++;
 			}
 			spawned = Instantiate (ennemyPrefabs[chosenOne]);
-			if (spawned)
-				print ("Enemy spawned");
+			spawned.transform.parent = transform;
 		}
 	}
 }
