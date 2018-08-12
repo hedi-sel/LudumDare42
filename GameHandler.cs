@@ -7,8 +7,10 @@ public class GameHandler : MonoBehaviour {
 	public static GameHandler instance = null;
 
 	//Parameters
+	[Header("General Settings")]
 	public float textSpeed = 10;
 
+	[Header("Game Settings")]
 	public float gameSpeed;
 	public float characterSpeed;
 	public float cursorReach;
@@ -20,7 +22,10 @@ public class GameHandler : MonoBehaviour {
 
 	public LevelSettings[] levels;
 
+	[Header("Accessible Game Data")]
+
 	public LevelSettings currentLevel;
+	public GameObject character;
 
 	private const float aspect = 1280.0F / 720.0F;
 	void Awake (){
